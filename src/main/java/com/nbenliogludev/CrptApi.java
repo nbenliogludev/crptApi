@@ -80,17 +80,15 @@ public class CrptApi {
         @JsonProperty("product_group")
         public ProductGroup productGroup;
 
-        public String signature;
-        public DocumentType type;
+        public final String signature;
+        public final DocumentType type;
 
-        public DocumentRequest() { }
-
-        public DocumentRequest(DocumentFormat fmt, String productDocB64, ProductGroup group,
-                               String signatureB64, DocumentType type) {
+        public DocumentRequest(DocumentFormat fmt, String docB64,
+                               ProductGroup group, String sigB64, DocumentType type) {
             this.documentFormat = fmt;
-            this.productDocument = productDocB64;
+            this.productDocument = docB64;
             this.productGroup = group;
-            this.signature = signatureB64;
+            this.signature = sigB64;
             this.type = type;
         }
     }
