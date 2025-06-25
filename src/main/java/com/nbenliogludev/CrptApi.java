@@ -24,6 +24,8 @@ public class CrptApi {
     private final String apiBaseUrl;
     private final Deque<Long> requestTimestamps = new ArrayDeque<>();
 
+    private final ObjectMapper mapper = new ObjectMapper();
+
     private final HttpClient http = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(10))
             .build();
