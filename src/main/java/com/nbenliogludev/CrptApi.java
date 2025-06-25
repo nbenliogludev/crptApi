@@ -58,5 +58,32 @@ public class CrptApi {
 
     private static class ResponseEnvelope { public String value; }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class DocumentRequest {
+        @JsonProperty("document_format")
+        public DocumentFormat documentFormat;
+
+        @JsonProperty("product_document")
+        public String productDocument; // Base64‑encoded payload
+
+        @JsonProperty("product_group")
+        public ProductGroup productGroup; // optional per spec, duplicated to body if set
+
+        public String signature; // detached CMS in Base64
+        public DocumentType type;
+
+        public DocumentRequest() { }
+
+        public DocumentRequest(DocumentFormat fmt, String productDocB64, ProductGroup group,
+                               String signatureB64, DocumentType type) {
+            this.documentFormat = fmt;
+            this.productDocument = productDocB64;
+            this.productGroup = group;
+            this.signature = signatureB64;
+            this.type = type;
+        }
+    }
+
+    public enum DocumentFormat { MANUAL, XML, CSV }
 
 }
