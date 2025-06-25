@@ -1,5 +1,8 @@
 package com.nbenliogludev;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -64,12 +67,12 @@ public class CrptApi {
         public DocumentFormat documentFormat;
 
         @JsonProperty("product_document")
-        public String productDocument; // Base64‑encoded payload
+        public String productDocument;
 
         @JsonProperty("product_group")
-        public ProductGroup productGroup; // optional per spec, duplicated to body if set
+        public ProductGroup productGroup;
 
-        public String signature; // detached CMS in Base64
+        public String signature;
         public DocumentType type;
 
         public DocumentRequest() { }
