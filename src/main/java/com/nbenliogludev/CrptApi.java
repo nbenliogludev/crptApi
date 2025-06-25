@@ -42,7 +42,7 @@ public class CrptApi {
         this.apiBaseUrl = Objects.requireNonNull(apiBaseUrl);
     }
 
-    public void createDocument(DocumentRequest req) {
+    public String createDocument(DocumentRequest req) throws IOException, InterruptedException {
         Objects.requireNonNull(req, "req is null");
 
         String url = String.format("%s/api/v3/lk/documents/create?pg=%s", apiBaseUrl, req.productGroup.name().toLowerCase());
