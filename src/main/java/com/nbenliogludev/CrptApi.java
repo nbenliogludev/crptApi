@@ -110,7 +110,7 @@ public class CrptApi {
         }
     }
 
-    private void purge(long now) {
+    private synchronized void purge(long now) {
         while (!requestTimestamps.isEmpty() && now - requestTimestamps.peekFirst() >= windowMillis) {
             requestTimestamps.pollFirst();
         }
