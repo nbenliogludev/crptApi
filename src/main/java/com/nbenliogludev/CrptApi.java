@@ -155,6 +155,20 @@ public class CrptApi {
         @JsonEnumDefaultValue UNKNOWN
     }
 
+    public enum ProductGroup {
+        CLOTHES,
+        SHOES,
+        TOBACCO,
+        PERFUMERY,
+        TIRES,
+        ELECTRONICS,
+        PHARMA,
+        MILK,
+        BICYCLE,
+        WHEELCHAIRS,
+        @JsonEnumDefaultValue UNKNOWN
+    }
+
     public enum DocumentFormat { MANUAL, XML, CSV }
 
 }
