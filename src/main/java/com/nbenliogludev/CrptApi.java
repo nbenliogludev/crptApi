@@ -21,7 +21,7 @@ public class CrptApi {
             .connectTimeout(Duration.ofSeconds(10))
             .build();
 
-    public CrptApi(TimeUnit timeUnit, int requestLimit) {
+    public CrptApi(TimeUnit timeUnit, int requestLimit, String apiBaseUrl) {
         if (requestLimit <= 0) {
             throw new IllegalArgumentException("requestLimit must be positive");
         }
