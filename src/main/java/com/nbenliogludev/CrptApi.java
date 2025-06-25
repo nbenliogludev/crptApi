@@ -21,4 +21,6 @@ public class CrptApi {
         this.requestLimit = requestLimit;
         this.windowMillis = timeUnit.toMillis(1);
     }
+
+    public void createDocument(Document document, String signature) {}
 }
