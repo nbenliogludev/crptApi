@@ -1,5 +1,9 @@
 package com.nbenliogludev;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Objects;
@@ -31,5 +35,28 @@ public class CrptApi {
         this.apiBaseUrl = Objects.requireNonNull(apiBaseUrl);
     }
 
-    public void createDocument(Document document, String signature) {}
+    public void createDocument(DocumentRequest req) {
+        Objects.requireNonNull(req, "req is null");
+
+        String url = String.format("%s/api/v3/lk/documents/create?pg=%s", apiBaseUrl, req.productGroup.name().toLowerCase());
+        String body = mapper.writeValueAsString(req);
+
+        HttpRequest httpReq = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+
+        HttpResponse<String> resp = http.send(httpReq, HttpResponse.BodyHandlers.ofString());
+        if (resp.statusCode() / 100 != 2) {
+            throw new IOException("API error " + resp.statusCode() + ": " + resp.body());
+        }
+
+        ResponseEnvelope envelope = mapper.readValue(resp.body(), ResponseEnvelope.class);
+        return envelope.value;
+    }
+
+    private static class ResponseEnvelope { public String value; }
+
+
 }
