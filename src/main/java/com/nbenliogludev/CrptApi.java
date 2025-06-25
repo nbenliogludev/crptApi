@@ -42,8 +42,9 @@ public class CrptApi {
         this.apiBaseUrl = Objects.requireNonNull(apiBaseUrl);
     }
 
-    public String createDocument(DocumentRequest req) throws IOException, InterruptedException {
+    public String createDocument(DocumentRequest req, String bearerToken) throws IOException, InterruptedException {
         Objects.requireNonNull(req, "req is null");
+        Objects.requireNonNull(bearerToken, "token null");
 
         acquirePermit();
 
@@ -53,6 +54,7 @@ public class CrptApi {
         HttpRequest httpReq = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + bearerToken)
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
 
