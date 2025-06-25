@@ -91,6 +91,30 @@ public class CrptApi {
         }
     }
 
+    /* ====================  Limit controls  ==================== */
+
+    private synchronized void acquirePermit() throws InterruptedException {
+        while (true) {
+            long now = System.currentTimeMillis();
+            purge(now);
+            if (requestTimestamps.size() < requestLimit) {
+                requestTimestamps.addLast(now);
+                return;
+            }
+            long sleep = windowMillis - (now - requestTimestamps.peekFirst());
+            if (sleep > 0) this.wait(sleep);
+        }
+    }
+
+    private void purge(long now) {
+        while (!requestTimestamps.isEmpty() && now - requestTimestamps.peekFirst() >= windowMillis) {
+            requestTimestamps.pollFirst();
+        }
+        if (requestTimestamps.size() < requestLimit) this.notifyAll();
+    }
+
+    /* ====================  DTOs  ==================== */
+
     public enum DocumentType {
         AGGREGATION_DOCUMENT,
         AGGREGATION_DOCUMENT_CSV,
