@@ -2,6 +2,7 @@ package com.nbenliogludev;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.net.http.HttpClient;
 import java.time.Duration;
@@ -27,6 +28,7 @@ public class CrptApi {
 
         this.requestLimit = requestLimit;
         this.windowMillis = timeUnit.toMillis(1);
+        this.apiBaseUrl = Objects.requireNonNull(apiBaseUrl);
     }
 
     public void createDocument(Document document, String signature) {}
