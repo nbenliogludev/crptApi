@@ -13,6 +13,7 @@ public class CrptApi {
 
     private final int requestLimit;
     private final long windowMillis;
+    private final String apiBaseUrl;
     private final Deque<Long> requestTimestamps = new ArrayDeque<>();
 
     private final HttpClient http = HttpClient.newBuilder()
