@@ -45,6 +45,8 @@ public class CrptApi {
     public String createDocument(DocumentRequest req) throws IOException, InterruptedException {
         Objects.requireNonNull(req, "req is null");
 
+        acquirePermit();
+
         String url = String.format("%s/api/v3/lk/documents/create?pg=%s", apiBaseUrl, req.productGroup.name().toLowerCase());
         String body = mapper.writeValueAsString(req);
 
